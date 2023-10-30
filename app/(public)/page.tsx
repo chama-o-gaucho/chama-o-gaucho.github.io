@@ -21,6 +21,7 @@ import { GContainerFooter } from '../components/Containers/GContainerFooter';
 import { useInView } from 'react-intersection-observer';
 import { GAboutContainer } from '../components/Containers/GAboutContainer';
 import Link from 'next/link';
+import { GGallery } from '../components/GGallery';
 
 
 
@@ -35,9 +36,7 @@ export default function Home() {
     <GMainContainer>
 
       <GText text='teste chama o gaúcho' />
-
-
-
+      <GGallery />
 
     </GMainContainer >
   )

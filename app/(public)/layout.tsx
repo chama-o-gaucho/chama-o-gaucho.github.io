@@ -26,15 +26,15 @@ export default function RootLayout({
   return (
     <html lang="pt-Br">
       <body >
+        <div className='flex justify-center'>
+          <Image alt='teste' src='/home/logo.svg' height="300" width="300" />
+        </div>
         <GContainerMenu>
-          <Image alt='teste' src='/home/logo.png' height="45" width="45" />
-          <GContainerMenuOptions>
-            <Link href="/">
-              <GbuttonText textButton='HOME' />
-            </Link>
-            <GbuttonTextHover textButton='PORTIFÓLIO' />
-            <GbuttonContained textButton='CONTATO' />
-          </GContainerMenuOptions>
+          <Link href="/">
+            <GbuttonText textButton='HOME' />
+          </Link>
+          <GbuttonTextHover textButton='AGENDA' />
+          <GbuttonContained textButton='CONTATO' />
         </GContainerMenu>
 
         {children}
