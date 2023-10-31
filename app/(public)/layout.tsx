@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="pt-Br">
       <body >
         <div className='flex justify-center'>
-          <Image alt='teste' src='/home/logo.svg' height="300" width="300" />
+          <Image alt='teste' src='/home/logo1.svg' height="300" width="300" />
         </div>
         <GContainerMenu>
           <Link href="/">
