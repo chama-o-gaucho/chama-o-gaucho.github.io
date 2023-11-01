@@ -1,43 +1,111 @@
 'use client';
-import Image from 'next/image'
-import { GbuttonContained } from '../components/Buttons/GButtonContained';
-import { GbuttonText } from '../components/Buttons/GButtonText';
-import { GbuttonTextHover } from '../components/Buttons/GButtonTextHover';
-import { GTitle } from '../components/Typography/GTitle';
-import { GButtonOrca } from '../components/Buttons/GButtonOrca';
-import { GMainContainer } from '../components/Containers/GMainContainer';
-import { GContainerMenu } from '../components/Containers/GContainerMenu';
-import { GContainerMenuOptions } from '../components/Containers/GContainerMenuOptions';
-import { GContainer } from '../components/Containers/GContainer';
-import { GContainerContent } from '../components/Containers/GContainerContent';
-import { RenderElement } from '../components/RenderElement';
-import { GContainerServicos } from '../components/Containers/GContainerServicos';
-import { GText } from '../components/Typography/GText';
-import GAccordion from '../components/GAccordion';
-import React, { useEffect, useState } from 'react';
-import { GDepoiment } from '../components/GDepoiment';
-import { GContainerDepoiments } from '../components/Containers/GContainerDepoiments';
-import { GContainerFooter } from '../components/Containers/GContainerFooter';
-import { useInView } from 'react-intersection-observer';
-import { GAboutContainer } from '../components/Containers/GAboutContainer';
-import Link from 'next/link';
-import { GGallery } from '../components/GGallery';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { Dialog, DialogTitle, DialogContent } from '@mui/material';
+
+interface Card {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+}
 
 
+export default function Album() {
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
+  const cards: Card[] = [
+    {
+      id: 1,
+      image: '/gallery/2.jpg',
+      title: 'Título 1',
+      description: 'Descrição 1.',
+    },
+    {
+      id: 2,
+      image: '/gallery/3.jpg',
+      title: 'Título 2',
+      description: 'Descrição 2.',
+    },
+    {
+      id: 3,
+      image: '/gallery/4.jpg',
+      title: 'Título 3',
+      description: 'Descrição 3.',
+    },
+    // Adicione mais objetos de card conforme necessário
+  ];
 
-export default function Home() {
+  const showImageContent = (card: Card) => {
+    setSelectedCard(card);
+  };
 
+  const handleCloseModal = () => {
+    setSelectedCard(null);
+  };
 
 
 
 
   return (
-    <GMainContainer>
+    <>
+      <main>
+        {/* hero unit */}
+        <Box className='pt-2 pb-2'>
+          <Container maxWidth="sm">
 
-      <GText text='teste chama o gaúcho' />
-      <GGallery />
+            <Typography className='pt-10 text-center' variant="h5" paragraph>
+              descrição sobre
+            </Typography>
 
-    </GMainContainer >
-  )
+          </Container>
+        </Box>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* end hero unit */}
+          <Typography className='pt-10 text-center' variant="h3" paragraph>
+            Galeria
+          </Typography>
+          <Grid container spacing={4}>
+            {cards.map((card) => (
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
+                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <CardMedia component="div" sx={{ pt: '56.25%' }} image={card.image} />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {card.title}
+                    </Typography>
+                  </CardContent>
+                  <Button onClick={() => showImageContent(card)}>Ver</Button>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          {selectedCard && (
+            <Dialog open={Boolean(selectedCard)} onClose={handleCloseModal}>
+              <DialogTitle>{selectedCard.title}</DialogTitle>
+              <DialogContent sx={{ display: 'flex', flexDirection: 'row' }}>
+                <CardMedia component="img" sx={{ maxWidth: '50%' }} image={selectedCard.image} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {selectedCard.title}
+                  </Typography>
+                  <Typography>{selectedCard.description}</Typography>
+                </CardContent>
+              </DialogContent>
+            </Dialog>
+          )}
+        </Container>
+      </main>
+
+    </>
+  );
 }

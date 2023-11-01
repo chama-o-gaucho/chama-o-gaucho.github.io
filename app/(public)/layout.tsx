@@ -1,17 +1,8 @@
 import type { Metadata } from 'next'
 import "../components/globals.css"
-import { GbuttonContained } from '../components/Buttons/GButtonContained'
-import { GbuttonText } from '../components/Buttons/GButtonText'
-import { GbuttonTextHover } from '../components/Buttons/GButtonTextHover'
-import { GContainerMenu } from '../components/Containers/GContainerMenu'
-import { GContainerMenuOptions } from '../components/Containers/GContainerMenuOptions'
 import Image from 'next/image'
-import { GAboutContainer } from '../components/Containers/GAboutContainer'
-import { GContainerFooter } from '../components/Containers/GContainerFooter'
-import { GText } from '../components/Typography/GText'
 import Link from 'next/link'
-import { GContainerDepoiments } from '../components/Containers/GContainerDepoiments'
-import { GDepoiment } from '../components/GDepoiment'
+import { AppBar, Toolbar, Box, Stack, Button, Typography } from '@mui/material'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -26,38 +17,49 @@ export default function RootLayout({
   return (
     <html lang="pt-Br">
       <body >
-        <div className='flex justify-center'>
-          <Image alt='teste' src='/home/logo1.svg' height="300" width="300" />
-        </div>
-        <GContainerMenu>
-          <Link href="/">
-            <GbuttonText textButton='HOME' />
-          </Link>
-          <GbuttonTextHover textButton='AGENDA' />
-          <GbuttonContained textButton='CONTATO' />
-        </GContainerMenu>
-
+        <AppBar className='relative bg-gray-100' position="relative">
+          <Toolbar className='justify-center'>
+            <Image alt='teste' src='/home/logo1.svg' height="300" width="300" />
+          </Toolbar>
+          <Box className='justify-center flex'>
+            <Stack className='flex-row justify-between w-9/12'>
+              <Link href=''>
+                <Button>Home</Button>
+              </Link>
+              <Link href=''>
+                <Button>Galeria</Button>
+              </Link>
+              <Link href=''>
+                <Button>Eventos</Button>
+              </Link>
+              <Link href=''>
+                <Button>Contato</Button>
+              </Link>
+            </Stack>
+          </Box>
+        </AppBar>
         {children}
-
-
-
-
-
-
-
-
-        <div className=' flex bg-black w-auto' style={{ height: '500px' }} >
+        <div className='bg-gray-800 w-full'>
+          <div className=' justify-center flex'>
+            <div className='w-9/12  flex gap-10 justify-center'>
+              <button>
+                <p className="text-white text-2xl">
+                  Instagram
+                </p>
+              </button>
+              <Link href="https://wa.me/5548991220902?text=Ol%C3%A1%2C+vim+pelo+site%21">
+                <button>
+                  <p className="text-white text-2xl">
+                    WhatsApp
+                  </p>
+                </button>
+              </Link>
+            </div>
+          </div>
+          <Typography className='p-5 text-white text-center'>
+            Todos os direitos reservados. ®
+          </Typography>
         </div>
-
-
-
-
-        <div className='bg-black' style={{ height: '100px' }}></div>
-        <div className='pt-44 w-full bg-black' >
-          <GContainerFooter />
-          <GText className='p-5 text-white bg-black text-center' text='Todos os direitos reservados. ®' />
-        </div>
-
       </body>
     </html>
   )
