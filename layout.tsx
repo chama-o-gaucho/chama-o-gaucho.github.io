@@ -39,27 +39,27 @@ export default function RootLayout({
           </Box>
         </AppBar>
         {children}
-        <Box className='relative w-full bg-gray-800' position="relative">
-          <Box className='justify-center flex-col'>
-            <Box className=' justify-between'>
+        <div className='bg-gray-800 w-full'>
+          <div className=' justify-center flex'>
+            <div className='w-9/12  flex gap-10 justify-center'>
               <button>
-                <Typography className="text-2xl">
+                <p className="text-white text-2xl">
                   Instagram
-                </Typography>
+                </p>
               </button>
               <Link href="https://wa.me/5548991220902?text=Ol%C3%A1%2C+vim+pelo+site%21">
                 <button>
-                  <Typography className="text-2xl">
+                  <p className="text-white text-2xl">
                     WhatsApp
-                  </Typography>
+                  </p>
                 </button>
               </Link>
-            </Box>
-            <Typography className='p-5 text-white'>
-              Todos os direitos reservados. ®
-            </Typography>
-          </Box>
-        </Box>
+            </div>
+          </div>
+          <Typography className='p-5 text-white text-center'>
+            Todos os direitos reservados. ®
+          </Typography>
+        </div>
       </body>
     </html>
   )

@@ -1,3 +1,4 @@
+'use client';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
@@ -15,43 +16,53 @@ import Link from '@mui/material/Link';
 import Image from 'next/image';
 import Item from '@mui/material/Stack';
 import { GGallery } from '../components/GGallery';
+import { useState } from 'react';
+import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+interface Card {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
 }
 
-const cards = [
-  {
-    id: 1,
-    image: 'https://source.unsplash.com/random?wallpapers',
-    title: 'Card 1 Title',
-    description: 'This is the description for Card 1.',
-  },
-  {
-    id: 2,
-    image: 'https://source.unsplash.com/random?nature',
-    title: 'Card 2 Title',
-    description: 'This is the description for Card 2.',
-  },
-  {
-    id: 3,
-    image: 'https://source.unsplash.com/random?animals',
-    title: 'Card 3 Title',
-    description: 'This is the description for Card 3.',
-  },
-  // Adicione mais objetos de card conforme necessário
-];
 
 export default function Album() {
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+
+  const cards: Card[] = [
+    {
+      id: 1,
+      image: '/gallery/2.jpg',
+      title: 'Título 1',
+      description: 'Descrição 1.',
+    },
+    {
+      id: 2,
+      image: '/gallery/3.jpg',
+      title: 'Título 2',
+      description: 'Descrição 2.',
+    },
+    {
+      id: 3,
+      image: '/gallery/4.jpg',
+      title: 'Título 3',
+      description: 'Descrição 3.',
+    },
+    // Adicione mais objetos de card conforme necessário
+  ];
+
+  const showImageContent = (card: Card) => {
+    setSelectedCard(card);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedCard(null);
+  };
+
+
+
+
   return (
     <>
       <main>
@@ -79,16 +90,27 @@ export default function Album() {
                     <Typography gutterBottom variant="h5" component="h2">
                       {card.title}
                     </Typography>
-                    <Typography>{card.description}</Typography>
                   </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
+                  <Button onClick={() => showImageContent(card)}>Ver</Button>
                 </Card>
               </Grid>
             ))}
           </Grid>
+
+          {selectedCard && (
+            <Dialog open={Boolean(selectedCard)} onClose={handleCloseModal}>
+              <DialogTitle>{selectedCard.title}</DialogTitle>
+              <DialogContent sx={{ display: 'flex', flexDirection: 'row' }}>
+                <CardMedia component="img" sx={{ maxWidth: '50%' }} image={selectedCard.image} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {selectedCard.title}
+                  </Typography>
+                  <Typography>{selectedCard.description}</Typography>
+                </CardContent>
+              </DialogContent>
+            </Dialog>
+          )}
         </Container>
       </main>
 
